@@ -60,7 +60,12 @@ function addWarrior(x,y,player){
 	return warrior;
 }
 
+ 
+
 function setState(item,state,player){
+
+
+
 	if (!player){
 		player = 1;
 	}
@@ -86,17 +91,40 @@ function setState(item,state,player){
 		}
 	}else if (item.type == WARRIOR_TYPE){
 		if (state == "Ready"){
+		item.bind("EnterFrame", function() {
+        });
 			if (player == 1){
 				item.image("images/warrior_ready_player1.png")
 			}else{
 				item.image("images/warrior_ready_player2.png")
 			}
 		}else if (state == "Running"){
-			if (player == 1){
-				item.image("images/warrior_running_player1.png")
+			console.log("on essaie de courrir.");
+			item.bind("EnterFrame", function() {
+	            item.move("e", 1.2);
+   		    });
+
+		}else if (state == "Dead"){
+			item.bind("EnterFrame", function() {
+       	 });
+		if (player == 1){
+				item.image("images/warrior_dead_player1.png")
 			}else{
-				item.image("images/warrior_firering_player2.png")
-			}
+				item.image("images/warrior_dead_player2.png")
+		}
+ //var warriorRunning = Crafty.e("2D, DOM, warriorRunning, animation")
+   //     .attr({x: 0, y: 0, w: item.x, h: item.y}) // Set the position
+     //   .animate("anim", 5, 0, 11); // Create the "anim" animation,
+                                            // starting from coordinate x=5 and going to x=11, with y=0
+
+//				Crafty.e("2D, DOM, SpriteAnimation, itemSprite")
+//			.animate(item, 0, 0, 1) //setup animation
+//			.animate(item, WARRIOR_WIDTH, -1) // start animation
+
+	//			Crafty.e("2D, DOM, SpriteAnimation, itemSprite")
+		//    .animate(item, 0, 1, 0) //setup animation
+		//	  .animate(item, 40, -1) // start animation
+			
 		}
 	}
 	return item;
