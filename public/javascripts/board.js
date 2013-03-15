@@ -91,6 +91,12 @@ function setState(item,state,player){
 			}else{
 				item.image("images/warrior_ready_player2.png")
 			}
+		}else if (state == "Running"){
+			if (player == 1){
+				item.image("images/warrior_running_player1.png")
+			}else{
+				item.image("images/warrior_firering_player2.png")
+			}
 		}
 	}
 	return item;
@@ -124,7 +130,7 @@ return {
 	},
 	
 	//Fonction pour l'ajout d'un élément sur le plateau de jeu
-	addItem:function(Type, x, y,player=1){
+	addItem:function(Type, x, y,player){
 		if (!player){
 		player = 1;
 	}
