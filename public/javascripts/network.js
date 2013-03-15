@@ -25,12 +25,11 @@ var network = (function() {
               data = msg.data;
           }     
           console.log("fromServer", data);
-          console.log(callback, callback[data.cmd]);
           if(data.cmd == "play") {
             playCallback(data);
           } else if(data.cmd == "startGame") {
             startGameCallback(data);
-            send({startGame2:"start"});
+            socket.send(JSON.stringify({startGame2:"start"}));
          } else if(data.cmd == "startGame2") {
             startGameCallback(data);
           }

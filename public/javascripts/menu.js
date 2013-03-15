@@ -48,51 +48,50 @@ var menu = (function() {
                 window.alert("Selectionné un élément à ajouter");
             }
         }
+        
+        network.addStartGameCallback(function(data) {
+            startEditing();
+        });
     
-    }
-    
-    network.addStartGameCallback(function(data) {
-        startEditing();
-    });
-    
-    network.addPlayCallback(function(data) {
-        startGame(data);
-    });
-    
-    function startEditing() {
-        window.alert("Vous avez 30sc pour poser vos objets");
-        isEditingMode = true;
-        timeout=setTimeout(function() {
-            isEditingMode = false;
-            addWarriorDiv.className = "btn";
-            addTowerDiv.className = "btn";
-            var board = [];
-            for(var i=0; i<warriors.length; i++) {
-                board.push(warriors[i]);
-            }
-            for(var i=0; i<towers.length; i++) {
-                board.push(towers[i]);
-            }
-            network.send({cmd:"endEditing", board:board});
-        },30000);
-    }
-    
-    function startGame(data) {
-        for(var i=0; i<data.p1.length; i++) {
-            warriors[i].run();
+        network.addPlayCallback(function(data) {
+            startGame(data);
+        });
+        
+        function startEditing() {
+            window.alert("Vous avez 30sc pour poser vos objets");
+            isEditingMode = true;
+            timeout=setTimeout(function() {
+                isEditingMode = false;
+                addWarriorDiv.className = "btn";
+                addTowerDiv.className = "btn";
+                var board = [];
+                for(var i=0; i<warriors.length; i++) {
+                    board.push(warriors[i]);
+                }
+                for(var i=0; i<towers.length; i++) {
+                    board.push(towers[i]);
+                }
+                network.send({cmd:"endEditing", board:board});
+            },30000);
         }
-        for(var i=0; i<data.p2.length; i++) {
-            warriors[i].run();
+        
+        function startGame(data) {
+            console.log(data);
+            for(var i=0; i<data.p1.length; i++) {
+                board.setState(warriors[i],"Running");
+            }
+            for(var i=0; i<data.p2.length; i++) {
+                board.setState(warriors[i],"Running");
+            }
         }
+    
     }
     
     return {
         init: function() {
             init();
-        },
-        start: function() {
-            startEditing();
         }
+        
     }
     
 })();
