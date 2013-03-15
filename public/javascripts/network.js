@@ -6,7 +6,7 @@ var network = (function() {
 
     var socket = undefined;//ws mode
 
-    function webSocketMode() {
+    function webSocketMode(param1) {
       if(socket == undefined) {
         socket = new WebSocket(wshost);
         socket.onclose = function() { 
@@ -24,7 +24,7 @@ var network = (function() {
           } catch(exception) {
               data = msg.data;
           }     
-          console.log("fromServer", data); 
+          console.log("fromServer", data);
         }
       }
     }
