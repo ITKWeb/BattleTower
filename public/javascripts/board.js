@@ -21,16 +21,26 @@ Crafty.e("2D, DOM, SpriteAnimation, item")
     .animate(item, 45, -1) // start animation
 }
 
-function addTower(x,y){
+function addTower(x,y,player){
 	var tower = Crafty.e("2D, DOM, Image")  
 	    .attr({w:TOWER_WIDTH, h:TOWER_WIDTH, x:x, y:y})
-		.image("images/tour_verte_petite.png")
+		if (player == 2){
+			tower.image("images/tower_player2.png")
+		}else{
+			tower.image("images/tower_player1.png")
+		}
+	return tower;
 }
 
-function addWarrior(x,y){
+function addWarrior(x,y,player){
 	var warrior = Crafty.e("2D, DOM, Image")  
 	    .attr({w:WARRIOR_WIDTH, h:WARRIOR_WIDTH, x:x, y:y})
-		.image("images/guerrier_repos.png")
+	if (player == 2){
+			warrior.image("warrior_ready_player1.png")
+		}else{
+			warrior.image("warrior_ready_player1.png")
+		}
+	return warrior;
 }
 
 return {
@@ -59,12 +69,12 @@ return {
 	},
 	
 	//Fonction pour l'ajout d'un élément sur le plateau de jeu
-	addItem:function(Type, x, y){
+	addItem:function(Type, x, y,player=1){
 		if (Type=="Tower"){
-			addTower(x,y);
+			return addTower(x,y,player);
 		}		
 		else if (Type=="Warrior"){
-			addWarrior(x,y);
+			return addWarrior(x,y,player);
 		}
 	}
 
