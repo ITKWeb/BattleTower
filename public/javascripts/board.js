@@ -4,7 +4,8 @@ var board = (function() {
 	var IMAGE_HEIGHT = 600;
 	var TOWER_WIDTH = 40;
 	var WARRIOR_WIDTH = 56;
-	var warrior;
+	var TOWER_TYPE="Tower";
+	var WARRIOR_TYPE="Warrior";
 
 function dead(item){
 
@@ -21,6 +22,13 @@ Crafty.e("2D, DOM, SpriteAnimation, item")
     .animate(item, 45, -1) // start animation
 }
 
+function setProperties(item,x,y,player,type){
+	item.x=x;
+	item.y=y;
+	item.player=player;
+	item.type=type;
+}
+
 function addTower(x,y,player){
 	var tower = Crafty.e("2D, DOM, Image")  
 	    .attr({w:TOWER_WIDTH, h:TOWER_WIDTH, x:x, y:y})
@@ -29,6 +37,8 @@ function addTower(x,y,player){
 		}else{
 			tower.image("images/tower_ok_player1.png")
 		}
+	
+	setProperties(tower,x,y,player,TOWER_TYPE);
 	return tower;
 }
 
@@ -40,8 +50,43 @@ function addWarrior(x,y,player){
 		}else{
 			warrior.image("images/warrior_ready_player1.png")
 		}
+	setProperties(warrior,x,y,player,WARRIOR_TYPE);
 	return warrior;
 }
+
+function setState(item,state,player=1){
+	if (item.type == TOWER_TYPE){
+		if (state == "OK"){
+			if (player == 1){
+				item.image("images/tower_ok_player1.png")
+			}else{
+				item.image("images/tower_ok_player2.png")
+			}
+		}else if (state == "KO"){
+			if (player == 1){
+				item.image("images/tower_ko_player1.png")
+			}else{
+				item.image("images/tower_ko_player2.png")
+			}
+		}else if (state == "Firering"){
+			if (player == 1){
+				item.image("images/tower_firering_player1.png")
+			}else{
+				item.image("images/tower_firering_player2.png")
+			}
+		}
+	}else if (item.type == WARRIOR_TYPE){
+		if (state == "Ready"){
+			if (player == 1){
+				item.image("images/warrior_ready_player1.png")
+			}else{
+				item.image("images/warrior_ready_player2.png")
+			}
+		}
+	}
+	return item;
+}
+
 
 return {
 
@@ -64,16 +109,17 @@ return {
 	  //  .animate('PlayerRunning', 40, -1) // start animation
 	},
 	
-	dead:function(){
-		dead("PlayerSprite");
+	setState:function(item,state){
+		setState(item,state);
+		return item;
 	},
 	
 	//Fonction pour l'ajout d'un élément sur le plateau de jeu
 	addItem:function(Type, x, y,player=1){
-		if (Type=="Tower"){
+		if (Type==TOWER_TYPE){
 			return addTower(x,y,player);
 		}		
-		else if (Type=="Warrior"){
+		else if (Type==WARRIOR_TYPE){
 			return addWarrior(x,y,player);
 		}
 	}
