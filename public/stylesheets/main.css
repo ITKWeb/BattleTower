@@ -1,0 +1,21 @@
+body {
+    background-color: #000;
+}
+
+#cr-stage {
+    display: inline-block;
+}
+
+.menu {
+    width: 250px;
+    display: inline-block;
+    vertical-align: top;
+}
+
+.btn {
+    height: 50px;
+    border: 1px solid #FFF;
+    color: #FFF;
+    text-align: center;
+    line-height: 50px;
+}
