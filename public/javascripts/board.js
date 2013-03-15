@@ -25,9 +25,9 @@ function addTower(x,y,player){
 	var tower = Crafty.e("2D, DOM, Image")  
 	    .attr({w:TOWER_WIDTH, h:TOWER_WIDTH, x:x, y:y})
 		if (player == 2){
-			tower.image("images/tower_player2.png")
+			tower.image("images/tower_ok_player2.png")
 		}else{
-			tower.image("images/tower_player1.png")
+			tower.image("images/tower_ok_player1.png")
 		}
 	return tower;
 }
