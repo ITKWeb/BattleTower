@@ -36,9 +36,9 @@ function addWarrior(x,y,player){
 	var warrior = Crafty.e("2D, DOM, Image")  
 	    .attr({w:WARRIOR_WIDTH, h:WARRIOR_WIDTH, x:x, y:y})
 	if (player == 2){
-			warrior.image("warrior_ready_player1.png")
+			warrior.image("images/warrior_ready_player1.png")
 		}else{
-			warrior.image("warrior_ready_player1.png")
+			warrior.image("images/warrior_ready_player1.png")
 		}
 	return warrior;
 }
