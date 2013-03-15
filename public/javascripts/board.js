@@ -20,10 +20,17 @@ Crafty.e("2D, DOM, SpriteAnimation, item")
     .animate(item, 0, 1, 0) //setup animation
     .animate(item, 45, -1) // start animation
 }
+
 function addTower(x,y){
 	var tower = Crafty.e("2D, DOM, Image")  
 	    .attr({w:TOWER_WIDTH, h:TOWER_WIDTH, x:x, y:y})
 		.image("images/tour_verte_petite.png")
+}
+
+function addWarrior(x,y){
+	var warrior = Crafty.e("2D, DOM, Image")  
+	    .attr({w:WARRIOR_WIDTH, h:WARRIOR_WIDTH, x:x, y:y})
+		.image("images/guerrier_repos.png")
 }
 
 return {
@@ -36,15 +43,15 @@ return {
 		
 
 		//Warriors
-		Crafty.sprite(WARRIOR_WIDTH, "images/guerrier1.png", {PlayerSprite: [0,0]} );
+	//	Crafty.sprite(WARRIOR_WIDTH, "images/guerrier1.png", {PlayerSprite: [0,0]} );
 
-	Crafty.e("2D, DOM, SpriteAnimation, PlayerSprite")
-	    .animate('PlayerRunning', 0, 0, 1) //setup animation
-	    .animate('PlayerRunning', 40, -1) // start animation
+	//Crafty.e("2D, DOM, SpriteAnimation, PlayerSprite")
+	  //  .animate('PlayerRunning', 0, 0, 1) //setup animation
+	    //.animate('PlayerRunning', 40, -1) // start animation
 
-	Crafty.e("2D, DOM, SpriteAnimation, PlayerSprite")
-	    .animate('PlayerRunning', 0, 1, 0) //setup animation
-	    .animate('PlayerRunning', 40, -1) // start animation
+//	Crafty.e("2D, DOM, SpriteAnimation, PlayerSprite")
+	//    .animate('PlayerRunning', 0, 1, 0) //setup animation
+	  //  .animate('PlayerRunning', 40, -1) // start animation
 	},
 	
 	dead:function(){
@@ -57,6 +64,7 @@ return {
 			addTower(x,y);
 		}		
 		else if (Type=="Warrior"){
+			addWarrior(x,y);
 		}
 	}
 
