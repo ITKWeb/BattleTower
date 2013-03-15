@@ -30,6 +30,9 @@ function setProperties(item,x,y,player,type){
 }
 
 function addTower(x,y,player){
+	if (!player){
+		player = 1;
+	}
 	var tower = Crafty.e("2D, DOM, Image")  
 	    .attr({w:TOWER_WIDTH, h:TOWER_WIDTH, x:x, y:y})
 		if (player == 2){
@@ -43,6 +46,9 @@ function addTower(x,y,player){
 }
 
 function addWarrior(x,y,player){
+	if (!player){
+		player = 1;
+	}
 	var warrior = Crafty.e("2D, DOM, Image")  
 	    .attr({w:WARRIOR_WIDTH, h:WARRIOR_WIDTH, x:x, y:y})
 	if (player == 2){
@@ -54,7 +60,10 @@ function addWarrior(x,y,player){
 	return warrior;
 }
 
-function setState(item,state,player=1){
+function setState(item,state,player){
+	if (!player){
+		player = 1;
+	}
 	if (item.type == TOWER_TYPE){
 		if (state == "OK"){
 			if (player == 1){
@@ -116,6 +125,9 @@ return {
 	
 	//Fonction pour l'ajout d'un élément sur le plateau de jeu
 	addItem:function(Type, x, y,player=1){
+		if (!player){
+		player = 1;
+	}
 		if (Type==TOWER_TYPE){
 			return addTower(x,y,player);
 		}		
