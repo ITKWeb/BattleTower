@@ -89,7 +89,7 @@ function setState(item,state,player){
 				item.image("images/tower_firering_player2.png")
 			}
 		}
-	}else if (item.type == WARRIOR_TYPE){
+	}else if (item.type == WARRIOR_TYPE){ 	
 		if (state == "Ready"){
 		item.bind("EnterFrame", function() {
         });
@@ -105,8 +105,8 @@ function setState(item,state,player){
    		    });
 
 		}else if (state == "Dead"){
-			item.bind("EnterFrame", function() {
-       	 });
+			//item.stop();
+			item.unbind("EnterFrame");
 		if (player == 1){
 				item.image("images/warrior_dead_player1.png")
 			}else{
