@@ -3,6 +3,8 @@ var network = (function() {
     var wshost = "ws://192.168.1.33:9000/ws";
     var socket = undefined;//ws mode
     var callback = {};
+    var startGameCallback = undefined;
+    var playCallback = undefined;
 
     function webSocketMode(param1) {
       if(socket == undefined) {
@@ -24,8 +26,13 @@ var network = (function() {
           }     
           console.log("fromServer", data);
           console.log(callback, callback[data.cmd]);
-          if(callback[data.cmd] !== undefined) {
-            callback[data.cmd].call(this, data);
+          if(data.cmd == "play") {
+            playCallback(data);
+          } else if(data.cmd == "startGame") {
+            startGameCallback(data);
+            send({startGame2:"start"});
+         } else if(data.cmd == "startGame2") {
+            startGameCallback(data);
           }
         }
       }
@@ -39,8 +46,11 @@ var network = (function() {
             console.log("toServer", data);
 	        socket.send(JSON.stringify(data));
         },
-        addCallback: function(cmd, cb) {
-            callback[cmd] = cb;
+        addStartGameCallback: function(cb) {
+            startGameCallback = cb;
+        },
+        addPlayCallback: function(cb) {
+            playCallback = cb;
         }
     }
     

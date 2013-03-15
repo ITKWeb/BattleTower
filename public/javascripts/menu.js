@@ -51,11 +51,11 @@ var menu = (function() {
     
     }
     
-    network.addCallback("startGame", function(data) {
+    network.addStartGameCallback(function(data) {
         startEditing();
     });
     
-    network.addCallback("play", function(data) {
+    network.addPlayCallback(function(data) {
         startGame(data);
     });
     
