@@ -3,8 +3,11 @@
 # ~~~~
 
 # Home page
-GET     /                           controllers.Application.index
-GET     /ws                           controllers.Application.connect
+GET     /                           controllers.Assets.at(path="/public", file="index.html")
+GET     /ws                         controllers.Application.connect
 
 # Map static resources from the /public folder to the /assets URL path
 GET     /assets/*file               controllers.Assets.at(path="/public", file)
+GET     /images/*file               controllers.Assets.at(path="/public/images", file)
+GET     /javascripts/*file          controllers.Assets.at(path="/public/javascripts", file)
+GET     /stylesheets/*file          controllers.Assets.at(path="/public/stylesheets", file)

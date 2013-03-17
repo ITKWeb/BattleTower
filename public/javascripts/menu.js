@@ -1,113 +1,83 @@
 var menu = (function() {
 
-    var isEditingMode = false;
-    var timeout;
+  var isEditingMode = false;
+  var playerNumber = 2;
+  var addTowerDiv;
+  var addWarriorDiv;
+  var stage;
+  var tempo;
 
-    function init() {
+  function init() {
+  
+    addTowerDiv = document.getElementById('btnAddTower');
+    addWarriorDiv = document.getElementById('btnAddWarrior');
+    stage = document.getElementById('cr-stage');
+    tempo = document.getElementById('tempo');
     
-        var addTowerDiv = document.getElementById('btnAddTower');
-        var addWarriorDiv = document.getElementById('btnAddWarrior');
-        var stage = document.getElementById('cr-stage');
-        
-        var selectedElement = undefined;
-        
-        var warriors = [];
-        var towers = [];
+    var selectedElement = undefined;
     
-        addTowerDiv.onclick = function() {
-            //if(isEditingMode == true) {
-                selectedElement = "Tower";
-                addTowerDiv.className = "btn select";
-                addWarriorDiv.className = "btn";
-            //} else {
-            //    window.alert("Le jeu n'a pas commencé");
-            //}
-        }
-        
-        addWarriorDiv.onclick = function() {
-            //if(isEditingMode == true) {
-                selectedElement = "Warrior";
-                addWarriorDiv.className = "btn select";
-                addTowerDiv.className = "btn";
-            //} else {
-            //    window.alert("Le jeu n'a pas commencé");
-            //}
-        }
-        
-        document.getElementById('btnDeadWarrior').onclick = function() {
-            for(var i=0; i<warriors.length; i++) {
-                board.setState(warriors[i],"Dead");
-            }
-        }
-        
-        document.getElementById('btnRunWarrior').onclick = function() {
-            for(var i=0; i<warriors.length; i++) {
-                board.setState(warriors[i],"Running");
-            }
-        }
-        
-        stage.onclick = function(evt) {
-            console.log(isEditingMode, selectedElement);
-            //if(isEditingMode == true && selectedElement) {
-                if(selectedElement == "Warrior") {
-                    warriors.push(board.addItem(selectedElement, evt.clientX - 250, evt.clientY));
-                } else {
-                    towers.push(board.addItem(selectedElement, evt.clientX - 250, evt.clientY));
-                }   
-            //} else if(isEditingMode == false) {
-            //    window.alert("Le jeu n'a pas commencé");
-            //} else {
-            //    window.alert("Selectionné un élément à ajouter");
-            //}
-        }
-        
-        network.addStartGameCallback(function(data) {
-            startEditing();
-        });
-    
-        network.addPlayCallback(function(data) {
-            startGame(data);
-        });
-        
-        function startEditing() {
-            window.alert("Vous avez 30sc pour poser vos objets");
-            isEditingMode = true;
-            timeout=setTimeout(function() {
-                isEditingMode = false;
-                addWarriorDiv.className = "btn";
-                addTowerDiv.className = "btn";
-                /*var board = [];
-                for(var i=0; i<warriors.length; i++) {
-                    board.push(warriors[i]);
-                }
-                for(var i=0; i<towers.length; i++) {
-                    board.push(towers[i]);
-                }
-                network.send({cmd:"endEditing", board:board});*/
-                startGame({});
-            },30000);
-        }
-        
-        function startGame(data) {
-            console.log(data);
-            /*for(var i=0; i<data.p1.length; i++) {
-                board.setState(warriors[i],"Running");
-            }
-            for(var i=0; i<data.p2.length; i++) {
-                board.setState(warriors[i],"Running");
-            }*/
-            for(var i=0; i<warriors.length; i++) {
-                board.setState(warriors[i],"Running");
-            }
-        }
-    
+    addTowerDiv.onclick = function() {
+      if(isEditingMode == true) {
+        selectedElement = "Tower";
+        addTowerDiv.className = "btn select";
+        addWarriorDiv.className = "btn";
+      } else {
+        window.alert("Le jeu n'a pas commencé");
+      }
     }
-    
-    return {
-        init: function() {
-            init();
-        }
-        
+      
+    addWarriorDiv.onclick = function() {
+      if(isEditingMode == true) {
+        selectedElement = "Warrior";
+        addWarriorDiv.className = "btn select";
+        addTowerDiv.className = "btn";
+      } else {
+        window.alert("Le jeu n'a pas commencé");
+      }
     }
+      
+    stage.onclick = function(evt) {
+      console.log(isEditingMode, selectedElement, evt);
+      if(isEditingMode == true && selectedElement) {
+        board.addItem({type: selectedElement, x: evt.layerX, y: evt.clientY, player: playerNumber});
+      } else if(isEditingMode == false) {
+        window.alert("Le jeu n'a pas commencé");
+      } else {
+        window.alert("Selectionné un élément à ajouter");
+      }
+    }
+  }
+
+  var tempoTimer;
+
+  function startTempo(delay) {
+    tempo.innerHTML = delay;
+    tempoTimer = setTimeout(function() {
+      if(delay - 1 > 0) {
+        startTempo(delay - 1);
+      } else {
+        tempo.innerHTML = "Fight !!";
+      }
+    }, 1000);
+  }
+  
+  return {
+    init: function() {
+      init();
+    },
+    setEditing: function(bool) {
+      isEditingMode = bool;
+      if(bool == false) {
+        addTowerDiv.className = "btn";
+        addWarriorDiv.className = "btn";
+      }
+    },
+    setPlayerNumber: function(num) {
+      playerNumber = num;
+    },
+    startTempo: function(delay) {
+      startTempo(delay);
+    }
+  }
     
 })();

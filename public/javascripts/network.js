@@ -1,8 +1,8 @@
 var network = (function() {
 
-    var wshost = "ws://192.168.1.33:9000/ws";
+    var wshost = "ws://127.0.0.1:9000/ws";//"ws://192.168.1.33:9000/ws";
     var socket = undefined;//ws mode
-    var callback = {};
+    var callbacks = {};
     var startGameCallback = undefined;
     var playCallback = undefined;
 
@@ -25,13 +25,8 @@ var network = (function() {
               data = msg.data;
           }     
           console.log("fromServer", data);
-          if(data.cmd == "play") {
-            playCallback(data);
-          } else if(data.cmd == "startGame") {
-            startGameCallback(data);
-            socket.send(JSON.stringify({startGame2:"start"}));
-         } else if(data.cmd == "startGame2") {
-            startGameCallback(data);
+          if(callbacks[data.cmd] != undefined) {
+            callbacks[data.cmd](data);
           }
         }
       }
@@ -40,17 +35,14 @@ var network = (function() {
     webSocketMode();
     
     return {
-        //public
-        send: function(data) {
-            console.log("toServer", data);
-	        socket.send(JSON.stringify(data));
-        },
-        addStartGameCallback: function(cb) {
-            startGameCallback = cb;
-        },
-        addPlayCallback: function(cb) {
-            playCallback = cb;
-        }
+      //public
+      send: function(data) {
+        console.log("toServer", data);
+        socket.send(JSON.stringify(data));
+      },
+      onCmd: function(cmdName, cb) {
+        callbacks[cmdName] = cb;
+      }
     }
     
 })();

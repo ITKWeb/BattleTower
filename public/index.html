@@ -1,9 +1,10 @@
 <html>
     <head>
-        <title>Local !!!!</title>
+        <title>BattleTower</title>
         <link rel="stylesheet" media="screen" href="stylesheets/main.css">
         <script src="javascripts/vendor/jquery-1.9.0.min.js" type="text/javascript"></script>
         <script src="javascripts/vendor/crafty-0.5.3.js" type="text/javascript"></script>
+        <script src="javascripts/item.js" type="text/javascript"></script>
         <script src="javascripts/network.js" type="text/javascript"></script>
 		<script src="javascripts/board.js" type="text/javascript"></script>
 		<script src="javascripts/menu.js" type="text/javascript"></script>
@@ -11,10 +12,14 @@
     </head>
     <body>
         <div class="menu">
+            <div id="points1" class="pts">100 points</div>
             <div id="btnAddTower" class="btn">Add tower</div>
-            <div id="btnAddWarrior" class="btn">Add warrior</div>   
-            <div id="btnDeadWarrior" class="btn">btnDeadWarrior</div>
-            <div id="btnRunWarrior" class="btn">btnRunWarrior</div> 
+            <div id="btnAddWarrior" class="btn">Add warrior</div>
+            <div id="points2" class="pts">100 points</div>
+        </div>
+        <div id="tempo" class="submenu"></div>
+        <div id="glass">
+            Attente d'un autre joueur.
         </div>
     </body>
 </html>
