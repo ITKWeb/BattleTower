@@ -64,7 +64,8 @@ object Games {
   
   def gameCanRun(uuidGame:String):Boolean = {
     games.get(uuidGame).map{ game => 
-      game.player1.state == "endEditing" && game.player2.state == "endEditing"
+      (game.player1.state == "endEditing" && game.player2.state == "endEditing") || 
+      (game.player1.state == "startEditing" && game.player2.state == "startEditing")
     }.getOrElse {
       Logger(Games.getClass).error("Game with uuid "+uuidGame+" doesn't exist")
       false

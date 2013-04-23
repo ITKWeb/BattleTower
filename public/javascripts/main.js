@@ -1,11 +1,7 @@
 (function() {
 
-	var devmod = true;
-<<<<<<< HEAD
+	var devmod = false;
 	var timeToPlay = 15000;
-=======
-	var timeToPlay = 5000;
->>>>>>> 9c57738be725562023c6d546337d453a95a0ee84
 	
   	window.onload = function() {
     board.init();
@@ -38,6 +34,7 @@
 
     network.onCmd('startEditing', function(data) {
       idGame = data.idGame;
+      menu.setIdGame(idGame)
       glass.hidden = true;
       startEditing();
     });

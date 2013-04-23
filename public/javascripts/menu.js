@@ -84,13 +84,12 @@ var menu = (function() {
 			addWarriorDivPlayer2.className = "btn select";
 			playerNumber = 2;
 		}
-		end = document.getElementById('end');
-		end.onclick = function() {
-			network.send({cmd: "startEditing", idGame: idGame, num: playerNumber});
-		}
-
 	}
-      
+	end = document.getElementById('end');
+	end.onclick = function() {
+		network.send({cmd: "startEditing", idGame: idGame, num: playerNumber});
+	}
+	 
     stage.onclick = function(evt) {
       console.log(isEditingMode, selectedElement, evt);
       addWarriorDiv.className = "btn";
