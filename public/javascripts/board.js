@@ -3,12 +3,13 @@ var board = (function() {
 	var IMAGE_WIDTH = 600;
 	var IMAGE_HEIGHT = 400;
 	var items = [];
+	var game;
 
 	return {
 
 		init:function(){
 			Crafty.init(IMAGE_WIDTH, IMAGE_HEIGHT);
-			Crafty.e("2D, Canvas, Image")  
+			game = Crafty.e("2D, Canvas, Image")  
 	    	.attr({w:IMAGE_WIDTH*2, h:IMAGE_HEIGHT})
 				.image("images/fond_plateau_1.png");
 		},
@@ -27,6 +28,10 @@ var board = (function() {
 
 		getItems: function() {
 			return items;
+		},
+		
+		getGame: function() {
+		    return game;
 		}
 
 	}       

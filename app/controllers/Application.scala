@@ -14,4 +14,5 @@ object Application extends Controller {
 	log.info("nbGames : " + Games.games.size)
 	Games.addPlayer()
   }
+
 }

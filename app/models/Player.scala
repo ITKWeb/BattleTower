@@ -28,4 +28,5 @@ object Player {
   def addBoard(player:Player, board:JsValue):Player = {
     Player(player.num, player.channelClient, Some(board), player.state)
   } 
+  
 }
