@@ -1,7 +1,7 @@
 var Item = function(item) {
 
   var TOWER_WIDTH = 40;
-  var WARRIOR_WIDTH = 56;
+  var WARRIOR_WIDTH = 40;
   var TOWER_TYPE="Tower";
   var WARRIOR_TYPE="Warrior";
 
@@ -16,12 +16,14 @@ var Item = function(item) {
   };
 
   function init() {
-    craftyElem = Crafty.e("2D, Canvas, Image")
-      .attr({w:TOWER_WIDTH, h:TOWER_WIDTH, x:item.x, y:item.y});
     if(item.type == TOWER_TYPE) {
-      craftyElem.image(getImage("tower_ok", item.player));
+		craftyElem = Crafty.e("tower, 2D, Canvas, Image, Collision")
+		  .attr({w:TOWER_WIDTH, h:TOWER_WIDTH, x:item.x, y:item.y});
+		craftyElem.image(getImage("tower_ok", item.player));
     } else {
-      craftyElem.image(getImage("warrior_ok", item.player));
+		craftyElem = Crafty.e("warrior, 2D, Canvas, Image, Collision")
+		  .attr({w:TOWER_WIDTH, h:TOWER_WIDTH, x:item.x, y:item.y});
+		craftyElem.image(getImage("warrior_ok", item.player));
     }
   }
 
@@ -43,13 +45,27 @@ var Item = function(item) {
       if (state == "Ready"){
         craftyElem.image(getImage("warrior_ok", item.player));
       } else if (state == "Running") {
-        //console.log("on essaie de courrir.");
+
+        console.log("on essaie de courrir.");
+		
+		Crafty.sprite(40, 'images/warrior_running_player1.png', {
+		warrior_running: [0,0],
+			});
+		
+		craftyElem.destroy();
+		craftyElem=Crafty.e("2D, Canvas, warrior_running, SpriteAnimation, Collision").attr({w:WARRIOR_WIDTH, h:WARRIOR_WIDTH, x:item.x, y:item.y});
+		craftyElem.animate('PlayerRunning', 0, 0, 1).animate('PlayerRunning', 40, -1);
+
         craftyElem.bind("EnterFrame", function() {
           if(item.player == 1) {
             craftyElem.move("e", 1.2);
           } else {
             craftyElem.move("w", 1.2);
           }
+        });
+		craftyElem.onHit("tower", function() {
+			console.log("touche !");
+            this.unbind("EnterFrame");
         });
       } else if (state == "Dead") {
         craftyElem.unbind("EnterFrame");
