@@ -40,7 +40,7 @@ var menu = (function() {
         addTowerDiv.className = "btn select";
         addWarriorDiv.className = "btn";
       } else {
-        window.alert("Le jeu n'a pas commencé");
+//        window.alert("Le jeu n'a pas commencé");
       }
     }
       
@@ -94,7 +94,7 @@ var menu = (function() {
       if(isEditingMode == true && selectedElement) {
         board.addItem({type: selectedElement, x: evt.layerX, y: evt.layerY, player: playerNumber});
       } else if(isEditingMode == false) {
-        window.alert("Le jeu n'a pas commencé");
+//        window.alert("Le jeu n'a pas commencé");
       } else {
         window.alert("Selectionné un élément à ajouter");
       }
