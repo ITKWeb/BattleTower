@@ -1,14 +1,30 @@
 (function() {
 
-  window.onload = function() {
+	var devmod = false;
+  	window.onload = function() {
     board.init();
     menu.init();
 
     var number = 2;//by default
     var idGame;
     var glass = document.getElementById('glass');
+	var menudev = document.getElementById('menudev');
+	var startdev = document.getElementById('startdev');
+	var startbutton = document.getElementById('startbutton');
 
-    network.onCmd('youAreFirst', function() {
+	if (devmod == true) {
+	console.log("devmod");
+	glass.hidden = true;
+	menudev.hidden = false;
+	startdev.hidden = false;
+	startbutton.onclick = function() {
+			 startItems();
+		}
+	startEditing();
+
+	} else {
+	console.log("pas devmod");
+	network.onCmd('youAreFirst', function() {
       number = 1;
       menu.setPlayerNumber(1);
     });
@@ -22,10 +38,15 @@
     network.onCmd('endEditing', function(data) {
       startGame(data);
     });
+}
 
     function startEditing() {
       menu.setEditing(true);
-      menu.startTempo(5);
+	if (devmod == true) {
+      
+	}else{
+		menu.startTempo(5);
+	
       setTimeout(function() {
         menu.setEditing(false);
         var myboard = [];
@@ -35,7 +56,15 @@
         }
         network.send({cmd: "endEditing", idGame: idGame, num: number, board: myboard});
       },5000);
+	}
     }
+
+	function startItems() {
+		var items = board.getItems();
+     	 for(var i=0; i<items.length; i++) {
+        items[i].setState("Running");
+      }
+	}
       
     function startGame(data) {
       console.log(data);
@@ -50,10 +79,7 @@
         }
       }
       //run my items
-      var items = board.getItems();
-      for(var i=0; i<items.length; i++) {
-        items[i].setState("Running");
-      }
+      startItems();
     }
 
   }

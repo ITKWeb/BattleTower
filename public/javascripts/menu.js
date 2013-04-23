@@ -1,9 +1,16 @@
 var menu = (function() {
 
+
   var isEditingMode = false;
   var playerNumber = 2;
   var addTowerDiv;
   var addWarriorDiv;
+
+  var addTowerDivPlayer1;
+  var addWarriorDivPlayer1;
+  var addTowerDivPlayer2;
+  var addWarriorDivPlayer2;
+
   var stage;
   var tempo;
 
@@ -11,6 +18,9 @@ var menu = (function() {
   
     addTowerDiv = document.getElementById('btnAddTower');
     addWarriorDiv = document.getElementById('btnAddWarrior');
+
+	
+
     stage = document.getElementById('cr-stage');
     tempo = document.getElementById('tempo');
     
@@ -35,6 +45,30 @@ var menu = (function() {
         window.alert("Le jeu n'a pas commencé");
       }
     }
+
+	if (devmod = true){
+		addTowerDivPlayer1 = document.getElementById('btnAddTowerp1');
+		addTowerDivPlayer1.onclick = function() {
+			selectedElement = "Tower";
+			addTowerDivPlayer1.className = "btn select";
+		}
+		addWarriorDivPlayer1 = document.getElementById('btnAddWarriorp1');
+		addWarriorDivPlayer1.onclick = function() {
+			selectedElement = "Warrior";
+			addWarriorDivPlayer1.className = "btn select";
+		}
+		addTowerDivPlayer2 = document.getElementById('btnAddTowerp2');
+		addTowerDivPlayer2.onclick = function() {
+			selectedElement = "Tower";
+			addTowerDivPlayer2.className = "btn select";
+		}
+		addWarriorDivPlayer2 = document.getElementById('btnAddWarriorp2');
+		addWarriorDivPlayer2.onclick = function() {
+			selectedElement = "Warrior";
+			addWarriorDivPlayer2.className = "btn select";
+		}
+
+	}
       
     stage.onclick = function(evt) {
       console.log(isEditingMode, selectedElement, evt);
