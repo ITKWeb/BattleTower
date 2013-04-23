@@ -1,6 +1,6 @@
 var network = (function() {
 
-    var wshost = "ws://127.0.0.1:9000/ws";//"ws://192.168.1.28:9000/ws";
+    var wshost = "ws://127.0.0.1:9999/ws";
     var socket = undefined;//ws mode
     var callbacks = {};
     var startGameCallback = undefined;
