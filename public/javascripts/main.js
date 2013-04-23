@@ -1,6 +1,6 @@
 (function() {
 
-	var devmod = true;
+	var devmod = false;
   	window.onload = function() {
     board.init();
     menu.init();
