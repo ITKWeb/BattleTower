@@ -26,6 +26,7 @@ var Item = function(item) {
   }
 
   function getImage(name, num) {
+		console.log("images/" + images[name] + num + ".png");
     return "images/" + images[name] + num + ".png";
   }
 
