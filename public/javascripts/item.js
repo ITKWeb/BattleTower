@@ -4,6 +4,10 @@ var Item = function(item) {
   var WARRIOR_WIDTH = 40;
   var TOWER_TYPE="Tower";
   var WARRIOR_TYPE="Warrior";
+  var TOWER_LIFE = 30;
+  var TOWER_POWER = 10;
+  var WARRIOR_LIFE = 20;
+  var WARRIOR_POWER = 10;
 
   var craftyElem;
 
@@ -30,12 +34,15 @@ var Item = function(item) {
 		craftyElem = Crafty.e("tower, 2D, Canvas, Image, Collision")
 		  .attr({w:TOWER_WIDTH, h:TOWER_WIDTH, x:item.x, y:item.y});
 		craftyElem.image(getImage("tower_ok", item.player));
+		this.life = TOWER_LIFE;
     } else {
 		craftyElem = Crafty.e("warrior, 2D, Canvas, Image, Collision")
 		  .attr({w:WARRIOR_WIDTH, h:WARRIOR_WIDTH, x:item.x, y:item.y});
 		craftyElem.image(getImage("warrior_ok", item.player));
+		this.life = WARRIOR_LIFE;
     }
   }
+
 
   function getImage(name, num) {
 		//console.log("images/" + images[name] + num + ".png");
