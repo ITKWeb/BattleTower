@@ -52,7 +52,7 @@ var Item = function(item) {
 			});
 		
 		craftyElem.destroy();
-		craftyElem=Crafty.e("2D, DOM, warrior_running, SpriteAnimation").attr({w:WARRIOR_WIDTH, h:WARRIOR_WIDTH, x:item.x, y:item.y});
+		craftyElem=Crafty.e("2D, Canvas, warrior_running, SpriteAnimation, Collision").attr({w:WARRIOR_WIDTH, h:WARRIOR_WIDTH, x:item.x, y:item.y});
 		craftyElem.animate('PlayerRunning', 0, 0, 1).animate('PlayerRunning', 40, -1);
         craftyElem.bind("EnterFrame", function() {
           if(item.player == 1) {

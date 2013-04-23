@@ -1,6 +1,6 @@
 (function() {
 
-	var devmod = false;
+	var devmod = true;
 	var timeToPlay = 5000;
 	
   	window.onload = function() {
