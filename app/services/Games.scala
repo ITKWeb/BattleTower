@@ -18,11 +18,15 @@ object Games {
   val games = HashMap[String, Game]()
   var gameWaiting: Option[WaintignGame] = None
   
+  val log = Logger(Games.getClass());
+  
   def addPlayer() = {
+    log.info("new user")
     val (out, channelClient) = Concurrent.broadcast[JsValue]
     val in = Iteratee.foreach[JsValue] { json => 
 		InterpretCmd(json, channelClient) 
     }
+    log.info("old exist ? "+gameWaiting)
     if(gameWaiting.isDefined) {
       val oldGame = gameWaiting.get
       val newGame = Game(oldGame.player1, Player.getSecondPlayer(channelClient))
@@ -33,6 +37,7 @@ object Games {
       Akka.system.scheduler.scheduleOnce(1 second) {
         InterpretCmd.startGame(uuidGame, newGame);
       }
+      log.info("send start "+games.size)
     } else {
       gameWaiting = Some(WaintignGame(Player.getFirstPlayer(channelClient), (in, out), channelClient))
     }
