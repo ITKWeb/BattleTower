@@ -7,8 +7,7 @@ import play.api.libs.json.JsValue
 
 case class Game(
   player1: Player, 
-  player2: Player,
-  channelClient: Channel[JsValue]
+  player2: Player
 )
 
 case class WaintignGame(
