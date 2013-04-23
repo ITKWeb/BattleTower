@@ -38,7 +38,7 @@ var Item = function(item) {
   }
 
   function getImage(name, num) {
-		console.log("images/" + images[name] + num + ".png");
+		//console.log("images/" + images[name] + num + ".png");
     return "images/" + images[name] + num + ".png";
   }
 
@@ -56,15 +56,19 @@ var Item = function(item) {
       } else if (state == "Firering") {
         craftyElem.image(getImage("tower_firering", item.player));
       }
+		craftyElem.collision();
     } else if (item.type == WARRIOR_TYPE) {   
       if (state == "Ready"){
         craftyElem.image(getImage("warrior_ok", item.player));
       } else if (state == "Running") {
+
         console.log("on essaie de courrir.");
 		craftyElem.destroy();
-//getSprite("warrior_running", item.player)
+
 		craftyElem=Crafty.e("2D, Canvas, "+getSprite("warrior_running", item.player)+", SpriteAnimation, Collision").attr({w:WARRIOR_WIDTH, h:WARRIOR_WIDTH, x:item.x, y:item.y});
+
 		craftyElem.animate('PlayerRunning', 0, 0, 1).animate('PlayerRunning', 40, -1);
+
         craftyElem.bind("EnterFrame", function() {
           if(item.player == 1) {
             craftyElem.move("e", 1.2);
@@ -72,7 +76,8 @@ var Item = function(item) {
             craftyElem.move("w", 1.2);
           }
         });
-		craftyElem.onHit("tower", function() {
+		craftyElem.collision();
+		craftyElem.onHit("tower",function() {
 			console.log("touche !");
             this.unbind("EnterFrame");
         });
