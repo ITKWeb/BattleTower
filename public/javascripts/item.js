@@ -32,7 +32,7 @@ var Item = function(item) {
 		craftyElem.image(getImage("tower_ok", item.player));
     } else {
 		craftyElem = Crafty.e("warrior, 2D, Canvas, Image, Collision")
-		  .attr({w:TOWER_WIDTH, h:TOWER_WIDTH, x:item.x, y:item.y});
+		  .attr({w:WARRIOR_WIDTH, h:WARRIOR_WIDTH, x:item.x, y:item.y});
 		craftyElem.image(getImage("warrior_ok", item.player));
     }
   }
