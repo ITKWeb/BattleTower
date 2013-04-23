@@ -141,7 +141,7 @@ var Tower = function(tower) {
       }
 		craftyElem.onHit("warrior",function() {
 			console.log("tour touche warrior");
-			var tir = new Projectil(this,this.hit);
+			var tir = new Projectil(this, this.hit("warrior"));
 			
 		});
   }
@@ -221,7 +221,7 @@ var Warrior = function(warrior) {
 		craftyElem.onHit("tower",function() {
 			console.log("warrior touche tour");
             this.unbind("EnterFrame");
-			var tir = new Projectil(this,this.hit);
+			var tir = new Projectil(this,this.hit("tower"));
         });
       } else if (state == "Dead") {
         craftyElem.unbind("EnterFrame");

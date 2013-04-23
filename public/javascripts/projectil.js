@@ -14,21 +14,28 @@ var Projectil = function(from, to) {
                 for(var i=0; i<l; i++) {
                     onHitCb(from, to);
                 }
+                this.destroy();
                 this.unbind("EnterFrame");
             })
             .collision()
             .bind("EnterFrame", function() {
+                console.log(to[0].obj);
+                
+                var toX = to[0].obj.x + to[0].obj.h/2;
+                var toY = to[0].obj.y + to[0].obj.w/2;
+                
 		        // Pixels to move are calculated from location and target every frame to handle the case when something else (IE, collision detection logic) changes our position.
 		        // Some cleaver optimization could probably eliminate the sqrt cost...
-		        var dx = to.x - this.x, dy = to.y - this.y,
-		        movX = (dx * this._speed) / (Math.sqrt(dx * dx + dy * dy)),
-		        movY = (dy * this._speed) / (Math.sqrt(dx * dx + dy * dy));
+		        var dx = toX - this.x, dy = toY - this.y,
+		        movX = (dx * speed) / (Math.sqrt(dx * dx + dy * dy)),
+		        movY = (dy * speed) / (Math.sqrt(dx * dx + dy * dy));
 
 		        oldDirection = { x: movX, y: movY };
 
 		        // Moved triggered twice to allow for better collision logic (like moving along diagonal walls)
 		        this.x += movX;
 		        this.y += movY;
+		        console.log("move to ", movX, movY);
             });
     }
     
