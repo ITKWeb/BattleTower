@@ -1,0 +1,19 @@
+﻿
+# Please enter the commit message for your changes. Lines starting
+# with '#' will be ignored, and an empty message aborts the commit.
+# On branch master
+# Your branch and 'origin/master' have diverged,
+# and have 7 and 15 different commits each, respectively.
+#
+# Changes to be committed:
+#   (use "git reset HEAD <file>..." to unstage)
+#
+#	modified:   app/services/Games.scala
+#	modified:   public/index.html
+#	modified:   public/javascripts/item.js
+#	modified:   public/javascripts/main.js
+#	modified:   public/javascripts/menu.js
+#	modified:   public/javascripts/network.js
+#	modified:   public/javascripts/projectil.js
+#
+
