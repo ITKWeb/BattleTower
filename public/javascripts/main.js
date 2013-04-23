@@ -1,7 +1,11 @@
 (function() {
 
 	var devmod = true;
+<<<<<<< HEAD
 	var timeToPlay = 15000;
+=======
+	var timeToPlay = 5000;
+>>>>>>> 9c57738be725562023c6d546337d453a95a0ee84
 	
   	window.onload = function() {
     board.init();
