@@ -16,12 +16,14 @@ var Item = function(item) {
   };
 
   function init() {
-    craftyElem = Crafty.e("2D, Canvas, Image")
-      .attr({w:TOWER_WIDTH, h:TOWER_WIDTH, x:item.x, y:item.y});
     if(item.type == TOWER_TYPE) {
-      craftyElem.image(getImage("tower_ok", item.player));
+		craftyElem = Crafty.e("tower, 2D, Canvas, Image, Collision")
+		  .attr({w:TOWER_WIDTH, h:TOWER_WIDTH, x:item.x, y:item.y});
+		craftyElem.image(getImage("tower_ok", item.player));
     } else {
-      craftyElem.image(getImage("warrior_ok", item.player));
+		craftyElem = Crafty.e("warrior, 2D, Canvas, Image, Collision")
+		  .attr({w:TOWER_WIDTH, h:TOWER_WIDTH, x:item.x, y:item.y});
+		craftyElem.image(getImage("warrior_ok", item.player));
     }
   }
 
@@ -50,6 +52,10 @@ var Item = function(item) {
           } else {
             craftyElem.move("w", 1.2);
           }
+        });
+		craftyElem.onHit("tower", function() {
+			console.log("touche !");
+            this.unbind("EnterFrame");
         });
       } else if (state == "Dead") {
         craftyElem.unbind("EnterFrame");
