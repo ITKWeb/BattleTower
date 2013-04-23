@@ -66,8 +66,7 @@ var Item = function(item) {
 		craftyElem.destroy();
 
 		craftyElem=Crafty.e("2D, Canvas, "+getSprite("warrior_running", item.player)+", SpriteAnimation, Collision").attr({w:WARRIOR_WIDTH, h:WARRIOR_WIDTH, x:item.x, y:item.y});
-
-		craftyElem.animate('PlayerRunning', 0, 0, 2).animate('PlayerRunning', 20, -1);
+		craftyElem.animate('PlayerRunning', 1, 0, 2).animate('PlayerRunning', 20, -1);
 
         craftyElem.bind("EnterFrame", function() {
           if(item.player == 1) {
@@ -206,7 +205,7 @@ var Warrior = function(warrior) {
 
 		craftyElem=Crafty.e("2D, Canvas, "+getSprite("warrior_running", warrior.player)+", SpriteAnimation, Collision").attr({w:WARRIOR_WIDTH, h:WARRIOR_WIDTH, x:warrior.x, y:warrior.y});
 
-		craftyElem.animate('PlayerRunning', 0, 0, 1).animate('PlayerRunning', 40, -1);
+		craftyElem.animate('PlayerRunning', 0, 0, 2).animate('PlayerRunning', 40, -1);
 
         craftyElem.bind("EnterFrame", function() {
           if(warrior.player == 1) {

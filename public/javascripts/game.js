@@ -5,6 +5,7 @@ var game = (function() {
 		
 		var score = [0,0];
 
+
 		
         network.onCmd('', function() {
         
