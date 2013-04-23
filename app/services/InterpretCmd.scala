@@ -19,7 +19,12 @@ object InterpretCmd {
         Games.addPlayerBoard(uuidGame, numPlayer, board)
         if(Games.gameCanRun(uuidGame)) {
           val newGame = Games.games.get(uuidGame).get
-          game.channelClient.push(
+          game.player1.channelClient.push(
+              Json.obj(
+                  "cmd" -> "endEditing", 
+                  "boardP1" -> newGame.player1.board.get,
+                  "boardP2" -> newGame.player2.board.get))
+          game.player2.channelClient.push(
               Json.obj(
                   "cmd" -> "endEditing", 
                   "boardP1" -> newGame.player1.board.get,
@@ -29,19 +34,24 @@ object InterpretCmd {
       case "startEditing" => {
         Games.switchPlayerState(uuidGame, numPlayer, "startEditing")
         if(Games.gameCanRun(uuidGame)) {
-          game.channelClient.push(Json.obj("cmd" -> "startEditing", "idGame" -> uuidGame))
+          game.player1.channelClient.push(Json.obj("cmd" -> "startEditing", "idGame" -> uuidGame))
+          game.player2.channelClient.push(Json.obj("cmd" -> "startEditing", "idGame" -> uuidGame))
         }
       }
-      case _ => game.channelClient.push(Json.obj("error" -> "cmd not found"))
+      case _ => {
+        game.player1.channelClient.push(Json.obj("error" -> "cmd not found"))
+        game.player2.channelClient.push(Json.obj("error" -> "cmd not found"))
+      }
     }
   }
   
   def startGame(uuidGame:String, game:Game) = {
-    game.channelClient.push(Json.obj("cmd" -> "startEditing", "idGame" -> uuidGame))
+    game.player1.channelClient.push(Json.obj("cmd" -> "startEditing", "idGame" -> uuidGame))
+    game.player2.channelClient.push(Json.obj("cmd" -> "startEditing", "idGame" -> uuidGame))
   }
   
   def sendYouAreFirstPlayer(game:Game) = {
-    game.channelClient.push(Json.obj("cmd" -> "youAreFirst"))
+    game.player1.channelClient.push(Json.obj("cmd" -> "youAreFirst"))
   }
   
 }
