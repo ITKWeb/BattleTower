@@ -1,13 +1,16 @@
 var Projectil = function(from, to) {
 
     var onHitCb = [];
-    var SIZE = {w:TOWER_WIDTH, h:TOWER_WIDTH, x:item.x, y:item.y};
+    var SIZE = {w:10, h:20, x:from.x, y:from.y};
 
     function init() {
-        Crafty.e("warrior, 2D, Canvas, Collision")
-            .attr(size);
+        Crafty.e("2D, Canvas, Collision")
+            .attr(size)
             .onHit("tower", function() {
-                onHitCb
+                var l = onHitCb.length;
+                for(var i=0; i<l; i++) {
+                    onHitCb(from, to);
+                }
             })
             .collision();
     }
