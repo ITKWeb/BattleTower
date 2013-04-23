@@ -3,6 +3,7 @@ var menu = (function() {
 
   var isEditingMode = false;
   var playerNumber = 2;
+  var idGame;
   var addTowerDiv;
   var addWarriorDiv;
 
@@ -83,6 +84,10 @@ var menu = (function() {
 			addWarriorDivPlayer2.className = "btn select";
 			playerNumber = 2;
 		}
+		end = document.getElementById('end');
+		end.onclick = function() {
+			network.send({cmd: "startEditing", idGame: idGame, num: playerNumber});
+		}
 
 	}
       
@@ -130,6 +135,9 @@ var menu = (function() {
     },
     startTempo: function(delay) {
       startTempo(delay);
+    },
+    setIdGame: function(id) {
+        idGame = id;
     }
   }
     
