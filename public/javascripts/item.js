@@ -41,6 +41,7 @@ var Item = function(item) {
       } else if (state == "Firering") {
         craftyElem.image(getImage("tower_firering", item.player));
       }
+		craftyElem.collision();
     } else if (item.type == WARRIOR_TYPE) {   
       if (state == "Ready"){
         craftyElem.image(getImage("warrior_ok", item.player));
@@ -53,7 +54,8 @@ var Item = function(item) {
 			});
 		
 		craftyElem.destroy();
-		craftyElem=Crafty.e("2D, Canvas, warrior_running, SpriteAnimation, Collision").attr({w:WARRIOR_WIDTH, h:WARRIOR_WIDTH, x:item.x, y:item.y});
+		craftyElem=Crafty.e("2D, Canvas, warrior_running, SpriteAnimation, Collision");
+		craftyElem.attr({x:item.x, y:item.y, w:WARRIOR_WIDTH, h:WARRIOR_WIDTH});
 		craftyElem.animate('PlayerRunning', 0, 0, 1).animate('PlayerRunning', 40, -1);
 
         craftyElem.bind("EnterFrame", function() {
@@ -63,7 +65,8 @@ var Item = function(item) {
             craftyElem.move("w", 1.2);
           }
         });
-		craftyElem.onHit("tower", function() {
+		craftyElem.collision();
+		craftyElem.onHit("tower",function() {
 			console.log("touche !");
             this.unbind("EnterFrame");
         });
