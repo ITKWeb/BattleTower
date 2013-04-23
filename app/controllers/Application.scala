@@ -10,5 +10,4 @@ object Application extends Controller {
   def connect() = play.api.mvc.WebSocket.using[JsValue] { implicit request =>
       Games.addPlayer()
   }
-
 }

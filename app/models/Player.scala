@@ -26,5 +26,4 @@ object Player {
   def addBoard(player:Player, board:JsValue):Player = {
     Player(player.num, Some(board), player.state)
   } 
-  
 }
