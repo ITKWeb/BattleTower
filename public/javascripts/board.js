@@ -21,7 +21,16 @@ var board = (function() {
 		
 		//Fonction pour l'ajout d'un élément sur le plateau de jeu
 		addItem:function(item) {
-			var item = new Item(item);
+			//var item = new Item(item);
+			
+					if(item.type == "Tower"){
+						console.log("tower");
+						var item = new Tower(item);
+					}else if(item.type == "Warrior"){
+						var item = new Warrior(item);
+						console.log("war");
+					}
+					
 			items.push(item);
 			return item;
 		},
