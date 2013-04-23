@@ -6,6 +6,7 @@
   	window.onload = function() {
     board.init();
     menu.init();
+    game.init();
 
     var number = 2;//by default
     var idGame;
@@ -47,7 +48,7 @@
 	if (devmod == true) {
       
 	}else{
-		menu.startTempo(timeToPlay);
+		menu.startTempo(timeToPlay/1000);
 	
       setTimeout(function() {
         menu.setEditing(false);
@@ -57,7 +58,7 @@
           myboard.push(items[i].getItem());
         }
         network.send({cmd: "endEditing", idGame: idGame, num: number, board: myboard});
-      },timeToPlay/1000);
+      },timeToPlay);
 	}
     }
 
