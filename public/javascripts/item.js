@@ -26,7 +26,7 @@ var Item = function(item) {
   }
 
   function getImage(name, num) {
-		console.log("images/" + images[name] + num + ".png");
+		//console.log("images/" + images[name] + num + ".png");
     return "images/" + images[name] + num + ".png";
   }
 
@@ -43,7 +43,7 @@ var Item = function(item) {
       if (state == "Ready"){
         craftyElem.image(getImage("warrior_ok", item.player));
       } else if (state == "Running") {
-        console.log("on essaie de courrir.");
+        //console.log("on essaie de courrir.");
         craftyElem.bind("EnterFrame", function() {
           if(item.player == 1) {
             craftyElem.move("e", 1.2);
