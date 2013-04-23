@@ -77,7 +77,6 @@ var Item = function(item) {
         });
 		craftyElem.collision();
 		craftyElem.onHit("tower",function() {
-			console.log("touche !");
             this.unbind("EnterFrame");
         });
       } else if (state == "Dead") {
@@ -106,12 +105,12 @@ var Item = function(item) {
 
 
 
-// COUPE DANS LE STEAK
+//TOWER
 
 
 var Tower = function(tower) {
 
-  var TOWER_WIDTH = 40;
+  var TOWER_WIDTH = 50;
   var craftyElem;
 
   var images = {
@@ -121,10 +120,10 @@ var Tower = function(tower) {
   };
 
   function init() {
-	craftyElem = Crafty.e("tower, 2D, Canvas, Image, Collision")
+	craftyElem = Crafty.e("tower, 2D, Canvas, Image, Collision, WiredHitBox")
 	  .attr({w:TOWER_WIDTH, h:TOWER_WIDTH, x:tower.x, y:tower.y});
 	craftyElem.image(getImage("tower_ok", tower.player));
-	craftyElem.collision();
+	craftyElem.collision([-30,-30],[80,-30],[80,80],[-30,80]);
   }
 
   function getImage(name, num) {
@@ -140,6 +139,11 @@ var Tower = function(tower) {
       } else if (state == "Firering") {
         craftyElem.image(getImage("tower_firering", tower.player));
       }
+		craftyElem.onHit("warrior",function() {
+			console.log("tour touche warrior");
+			var tir = new Projectil(this,this.hit);
+			
+		});
   }
 
   init();
@@ -156,6 +160,7 @@ var Tower = function(tower) {
 
 
 
+//WARRIOR
 
 
 
@@ -182,7 +187,6 @@ var Warrior = function(warrior) {
 	craftyElem = Crafty.e("warrior, 2D, Canvas, Image, Collision")
 	  .attr({w:WARRIOR_WIDTH, h:WARRIOR_WIDTH, x:warrior.x, y:warrior.y});
 	craftyElem.image(getImage("warrior_ok", warrior.player));
-	craftyElem.collision();
   }
 
   function getImage(name, num) {
@@ -203,10 +207,10 @@ var Warrior = function(warrior) {
         console.log("on essaie de courrir.");
 		craftyElem.destroy();
 
-		craftyElem=Crafty.e("2D, Canvas, "+getSprite("warrior_running", warrior.player)+", SpriteAnimation, Collision").attr({w:WARRIOR_WIDTH, h:WARRIOR_WIDTH, x:warrior.x, y:warrior.y});
-
+		craftyElem=Crafty.e("2D, Canvas, "+getSprite("warrior_running", warrior.player)+", SpriteAnimation, Collision, WiredHitBox").attr({w:WARRIOR_WIDTH, h:WARRIOR_WIDTH, x:warrior.x, y:warrior.y});
+		craftyElem.collision([-30,-30],[80,-30],[80,80],[-30,80]);
 		craftyElem.animate('PlayerRunning', 0, 0, 2).animate('PlayerRunning', 40, -1);
-
+		
         craftyElem.bind("EnterFrame", function() {
           if(warrior.player == 1) {
             craftyElem.move("e", 1.2);
@@ -215,8 +219,9 @@ var Warrior = function(warrior) {
           }
         });
 		craftyElem.onHit("tower",function() {
-			console.log("touche !");
+			console.log("warrior touche tour");
             this.unbind("EnterFrame");
+			var tir = new Projectil(this,this.hit);
         });
       } else if (state == "Dead") {
         craftyElem.unbind("EnterFrame");
