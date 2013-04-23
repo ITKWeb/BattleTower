@@ -207,16 +207,11 @@ var Warrior = function(warrior) {
         console.log("on essaie de courrir.");
 		craftyElem.destroy();
 
-<<<<<<< HEAD
+
 		craftyElem=Crafty.e("2D, Canvas, "+getSprite("warrior_running", warrior.player)+", SpriteAnimation, Collision, WiredHitBox").attr({w:WARRIOR_WIDTH, h:WARRIOR_WIDTH, x:warrior.x, y:warrior.y});
 		craftyElem.collision([-30,-30],[80,-30],[80,80],[-30,80]);
-		craftyElem.animate('PlayerRunning', 0, 0, 1).animate('PlayerRunning', 40, -1);
-=======
-		craftyElem=Crafty.e("2D, Canvas, "+getSprite("warrior_running", warrior.player)+", SpriteAnimation, Collision").attr({w:WARRIOR_WIDTH, h:WARRIOR_WIDTH, x:warrior.x, y:warrior.y});
-
 		craftyElem.animate('PlayerRunning', 0, 0, 2).animate('PlayerRunning', 40, -1);
->>>>>>> 15b558e9ee34161e9b5dacf888ca9115e2538c39
-
+		
         craftyElem.bind("EnterFrame", function() {
           if(warrior.player == 1) {
             craftyElem.move("e", 1.2);
