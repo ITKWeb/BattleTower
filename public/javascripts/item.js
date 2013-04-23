@@ -207,7 +207,6 @@ var Warrior = function(warrior) {
         console.log("on essaie de courrir.");
 		craftyElem.destroy();
 
-
 		craftyElem=Crafty.e("2D, Canvas, "+getSprite("warrior_running", warrior.player)+", SpriteAnimation, Collision, WiredHitBox").attr({w:WARRIOR_WIDTH, h:WARRIOR_WIDTH, x:warrior.x, y:warrior.y});
 		craftyElem.collision([-30,-30],[80,-30],[80,80],[-30,80]);
 		craftyElem.animate('PlayerRunning', 0, 0, 2).animate('PlayerRunning', 40, -1);
