@@ -18,34 +18,37 @@ object Games {
   val games = HashMap[String, Game]()
   var gameWaiting: Option[WaintignGame] = None
   
+  val log = Logger(Games.getClass());
+  
   def addPlayer() = {
+    log.info("new user")
+    val (out, channelClient) = Concurrent.broadcast[JsValue]
+    val in = Iteratee.foreach[JsValue] { json => 
+		InterpretCmd(json, channelClient) 
+    }
+    log.info("old exist ? "+gameWaiting)
     if(gameWaiting.isDefined) {
       val oldGame = gameWaiting.get
-      val newGame = Game(oldGame.player1, Player.getSecondPlayer(), oldGame.channelClient)
+      val newGame = Game(oldGame.player1, Player.getSecondPlayer(channelClient))
       val uuidGame = UUID.randomUUID().toString
       games.put(uuidGame, newGame)
       InterpretCmd.sendYouAreFirstPlayer(newGame);//only first player listen webSocket at this moment
-      val inOut = oldGame.inOut
       gameWaiting = None
       Akka.system.scheduler.scheduleOnce(1 second) {
         InterpretCmd.startGame(uuidGame, newGame);
       }
-      inOut
+      log.info("send start "+games.size)
     } else {
-      val (out, channelClient) = Concurrent.broadcast[JsValue]
-      val in = Iteratee.foreach[JsValue] { json => 
-        InterpretCmd(json, channelClient) 
-      }
-      gameWaiting = Some(WaintignGame(Player.getFirstPlayer(), (in, out), channelClient))
-      gameWaiting.get.inOut
+      gameWaiting = Some(WaintignGame(Player.getFirstPlayer(channelClient), (in, out), channelClient))
     }
+    (in, out)
   }
   
   def switchPlayerState(uuidGame:String, numPlayer:Int, state:String) = {
     games.get(uuidGame).map{ oldGame => 
       numPlayer match {
-        case 1 => games.put(uuidGame, Game(Player.changeState(oldGame.player1, state), oldGame.player2, oldGame.channelClient))
-        case _ => games.put(uuidGame, Game(oldGame.player1, Player.changeState(oldGame.player2, state), oldGame.channelClient))
+        case 1 => games.put(uuidGame, Game(Player.changeState(oldGame.player1, state), oldGame.player2))
+        case _ => games.put(uuidGame, Game(oldGame.player1, Player.changeState(oldGame.player2, state)))
       }
     }.getOrElse(Logger(Games.getClass).error("Game with uuid "+uuidGame+" doesn't exist"))
   }
@@ -53,8 +56,8 @@ object Games {
   def addPlayerBoard(uuidGame:String, numPlayer:Int, board:JsValue) = {
     games.get(uuidGame).map{ oldGame => 
       numPlayer match {
-        case 1 => games.put(uuidGame, Game(Player.addBoard(oldGame.player1, board), oldGame.player2, oldGame.channelClient))
-        case _ => games.put(uuidGame, Game(oldGame.player1, Player.addBoard(oldGame.player2, board), oldGame.channelClient))
+        case 1 => games.put(uuidGame, Game(Player.addBoard(oldGame.player1, board), oldGame.player2))
+        case _ => games.put(uuidGame, Game(oldGame.player1, Player.addBoard(oldGame.player2, board)))
       }
     }.getOrElse(Logger(Games.getClass).error("Game with uuid "+uuidGame+" doesn't exist"))
   }

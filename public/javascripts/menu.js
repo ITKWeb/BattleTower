@@ -1,16 +1,34 @@
 var menu = (function() {
 
+
   var isEditingMode = false;
   var playerNumber = 2;
   var addTowerDiv;
   var addWarriorDiv;
+
+  var addTowerDivPlayer1;
+  var addWarriorDivPlayer1;
+  var addTowerDivPlayer2;
+  var addWarriorDivPlayer2;
+
   var stage;
   var tempo;
+
+  function clearButtons(){
+		addTowerDivPlayer1.className = "btn";
+		addWarriorDivPlayer1.className = "btn";
+		addTowerDivPlayer2.className = "btn";		
+		addWarriorDivPlayer2.className = "btn";
+	
+  }
 
   function init() {
   
     addTowerDiv = document.getElementById('btnAddTower');
     addWarriorDiv = document.getElementById('btnAddWarrior');
+
+	
+
     stage = document.getElementById('cr-stage');
     tempo = document.getElementById('tempo');
     
@@ -35,11 +53,46 @@ var menu = (function() {
         window.alert("Le jeu n'a pas commencé");
       }
     }
+
+	if (devmod = true){
+		addTowerDivPlayer1 = document.getElementById('btnAddTowerp1');
+		addTowerDivPlayer1.onclick = function() {
+			clearButtons();
+			selectedElement = "Tower";
+			addTowerDivPlayer1.className = "btn select";
+			playerNumber = 1;
+		}
+		addWarriorDivPlayer1 = document.getElementById('btnAddWarriorp1');
+		addWarriorDivPlayer1.onclick = function() {
+			clearButtons();
+			selectedElement = "Warrior";
+			addWarriorDivPlayer1.className = "btn select";
+			playerNumber = 1;
+		}
+		addTowerDivPlayer2 = document.getElementById('btnAddTowerp2');
+		addTowerDivPlayer2.onclick = function() {
+			clearButtons();
+			selectedElement = "Tower";
+			addTowerDivPlayer2.className = "btn select";
+			playerNumber = 2;
+		}
+		addWarriorDivPlayer2 = document.getElementById('btnAddWarriorp2');
+		addWarriorDivPlayer2.onclick = function() {
+			clearButtons();
+			selectedElement = "Warrior";
+			addWarriorDivPlayer2.className = "btn select";
+			playerNumber = 2;
+		}
+
+	}
       
     stage.onclick = function(evt) {
       console.log(isEditingMode, selectedElement, evt);
+      addWarriorDiv.className = "btn";
+      addTowerDiv.className = "btn";
+//	  clearButtons();
       if(isEditingMode == true && selectedElement) {
-        board.addItem({type: selectedElement, x: evt.layerX, y: evt.clientY, player: playerNumber});
+        board.addItem({type: selectedElement, x: evt.layerX, y: evt.layerY, player: playerNumber});
       } else if(isEditingMode == false) {
         window.alert("Le jeu n'a pas commencé");
       } else {
