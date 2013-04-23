@@ -92,7 +92,9 @@ var menu = (function() {
       addTowerDiv.className = "btn";
 //	  clearButtons();
       if(isEditingMode == true && selectedElement) {
-        board.addItem({type: selectedElement, x: evt.layerX, y: evt.layerY, player: playerNumber});
+			  if (board.isForbiddenArea({type: selectedElement, x: evt.layerX, y: evt.layerY, player: playerNumber}) === false) {
+					board.addItem({type: selectedElement, x: evt.layerX, y: evt.layerY, player: playerNumber});
+				}
       } else if(isEditingMode == false) {
         window.alert("Le jeu n'a pas commencé");
       } else {
