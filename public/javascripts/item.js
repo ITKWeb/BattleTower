@@ -4,10 +4,6 @@ var Item = function(item) {
   var WARRIOR_WIDTH = 40;
   var TOWER_TYPE="Tower";
   var WARRIOR_TYPE="Warrior";
-  var TOWER_LIFE = 30;
-  var TOWER_POWER = 10;
-  var WARRIOR_LIFE = 20;
-  var WARRIOR_POWER = 10;
 
   var craftyElem;
 
@@ -19,40 +15,22 @@ var Item = function(item) {
     tower_firering: "tower_firering_player"
   };
 
-	Crafty.sprite(40, 'images/warrior_running_player1.png', {
-			warrior_running_1: [0,0]
-	});
-
-	Crafty.sprite(40, 'images/warrior_running_player2.png', {
-			warrior_running_2: [0,0]
-	});
-
-
-
   function init() {
     if(item.type == TOWER_TYPE) {
 		craftyElem = Crafty.e("tower, 2D, Canvas, Image, Collision")
 		  .attr({w:TOWER_WIDTH, h:TOWER_WIDTH, x:item.x, y:item.y});
 		craftyElem.image(getImage("tower_ok", item.player));
-		this.life = TOWER_LIFE;
     } else {
 		craftyElem = Crafty.e("warrior, 2D, Canvas, Image, Collision")
-		  .attr({w:WARRIOR_WIDTH, h:WARRIOR_WIDTH, x:item.x, y:item.y});
+		  .attr({w:TOWER_WIDTH, h:TOWER_WIDTH, x:item.x, y:item.y});
 		craftyElem.image(getImage("warrior_ok", item.player));
-		this.life = WARRIOR_LIFE;
     }
   }
 
-
   function getImage(name, num) {
-		//console.log("images/" + images[name] + num + ".png");
+		console.log("images/" + images[name] + num + ".png");
     return "images/" + images[name] + num + ".png";
   }
-
-	function getSprite(name, num) {
-		return name+"_"+num;
-  }
-	
 
   function setState(state){
     if (item.type == TOWER_TYPE) {
@@ -63,18 +41,19 @@ var Item = function(item) {
       } else if (state == "Firering") {
         craftyElem.image(getImage("tower_firering", item.player));
       }
-		craftyElem.collision();
     } else if (item.type == WARRIOR_TYPE) {   
       if (state == "Ready"){
         craftyElem.image(getImage("warrior_ok", item.player));
       } else if (state == "Running") {
-
         console.log("on essaie de courrir.");
+		
+		Crafty.sprite(40, 'images/warrior_running_player1.png', {
+		warrior_running: [0,0],
+			});
+		
 		craftyElem.destroy();
-
-		craftyElem=Crafty.e("2D, Canvas, "+getSprite("warrior_running", item.player)+", SpriteAnimation, Collision").attr({w:WARRIOR_WIDTH, h:WARRIOR_WIDTH, x:item.x, y:item.y});
-		craftyElem.animate('PlayerRunning', 1, 0, 2).animate('PlayerRunning', 20, -1);
-
+		craftyElem=Crafty.e("2D, Canvas, warrior_running, SpriteAnimation, Collision").attr({w:WARRIOR_WIDTH, h:WARRIOR_WIDTH, x:item.x, y:item.y});
+		craftyElem.animate('PlayerRunning', 0, 0, 1).animate('PlayerRunning', 40, -1);
         craftyElem.bind("EnterFrame", function() {
           if(item.player == 1) {
             craftyElem.move("e", 1.2);
@@ -82,8 +61,8 @@ var Item = function(item) {
             craftyElem.move("w", 1.2);
           }
         });
-		craftyElem.collision();
-		craftyElem.onHit("tower",function() {
+		craftyElem.onHit("tower", function() {
+			console.log("touche !");
             this.unbind("EnterFrame");
         });
       } else if (state == "Dead") {
@@ -108,7 +87,6 @@ var Item = function(item) {
   }
 
 };
-
 
 
 
@@ -251,8 +229,4 @@ var Warrior = function(warrior) {
   }
 
 };
-
-
-
-
 

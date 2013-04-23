@@ -1,7 +1,7 @@
 (function() {
 
 	var devmod = true;
-	var timeToPlay = 5000;
+	var timeToPlay = 15000;
 	
   	window.onload = function() {
     board.init();
@@ -34,6 +34,7 @@
 
     network.onCmd('startEditing', function(data) {
       idGame = data.idGame;
+      menu.setIdGame(idGame)
       glass.hidden = true;
       startEditing();
     });
