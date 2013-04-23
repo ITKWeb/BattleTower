@@ -16,11 +16,11 @@ var Item = function(item) {
   };
 
 	Crafty.sprite(40, 'images/warrior_running_player1.png', {
-			warrior_running_1: [0,0],
+			warrior_running_1: [0,0]
 	});
 
 	Crafty.sprite(40, 'images/warrior_running_player2.png', {
-			warrior_running_2: [0,0],
+			warrior_running_2: [0,0]
 	});
 
 
@@ -67,7 +67,7 @@ var Item = function(item) {
 
 		craftyElem=Crafty.e("2D, Canvas, "+getSprite("warrior_running", item.player)+", SpriteAnimation, Collision").attr({w:WARRIOR_WIDTH, h:WARRIOR_WIDTH, x:item.x, y:item.y});
 
-		craftyElem.animate('PlayerRunning', 0, 0, 1).animate('PlayerRunning', 40, -1);
+		craftyElem.animate('PlayerRunning', 0, 0, 2).animate('PlayerRunning', 20, -1);
 
         craftyElem.bind("EnterFrame", function() {
           if(item.player == 1) {
