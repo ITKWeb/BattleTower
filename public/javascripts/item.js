@@ -1,7 +1,7 @@
 var Item = function(item) {
 
   var TOWER_WIDTH = 40;
-  var WARRIOR_WIDTH = 56;
+  var WARRIOR_WIDTH = 40;
   var TOWER_TYPE="Tower";
   var WARRIOR_TYPE="Warrior";
 
@@ -43,6 +43,14 @@ var Item = function(item) {
         craftyElem.image(getImage("warrior_ok", item.player));
       } else if (state == "Running") {
         console.log("on essaie de courrir.");
+		
+		Crafty.sprite(40, 'images/warrior_running_player1.png', {
+		warrior_running: [0,0],
+			});
+		
+		craftyElem.destroy();
+		craftyElem=Crafty.e("2D, DOM, warrior_running, SpriteAnimation").attr({w:WARRIOR_WIDTH, h:WARRIOR_WIDTH, x:item.x, y:item.y});
+		craftyElem.animate('PlayerRunning', 0, 0, 1).animate('PlayerRunning', 40, -1);
         craftyElem.bind("EnterFrame", function() {
           if(item.player == 1) {
             craftyElem.move("e", 1.2);
