@@ -1,6 +1,8 @@
 (function() {
 
-	var devmod = true;
+	var devmod = false;
+	var timeToPlay = 5000;
+	
   	window.onload = function() {
     board.init();
     menu.init();
@@ -45,7 +47,7 @@
 	if (devmod == true) {
       
 	}else{
-		menu.startTempo(5);
+		menu.startTempo(timeToPlay);
 	
       setTimeout(function() {
         menu.setEditing(false);
@@ -55,7 +57,7 @@
           myboard.push(items[i].getItem());
         }
         network.send({cmd: "endEditing", idGame: idGame, num: number, board: myboard});
-      },5000);
+      },timeToPlay/1000);
 	}
     }
 
