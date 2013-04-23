@@ -28,8 +28,6 @@ var menu = (function() {
     addTowerDiv = document.getElementById('btnAddTower');
     addWarriorDiv = document.getElementById('btnAddWarrior');
 
-	
-
     stage = document.getElementById('cr-stage');
     tempo = document.getElementById('tempo');
     

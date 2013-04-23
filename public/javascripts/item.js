@@ -200,7 +200,6 @@ var Warrior = function(warrior) {
         craftyElem.image(getImage("warrior_ok", warrior.player));
       } else if (state == "Running") {
 
-        console.log("on essaie de courrir.");
 		craftyElem.destroy();
 
 		craftyElem=Crafty.e("2D, Canvas, "+getSprite("warrior_running", warrior.player)+", SpriteAnimation, Collision").attr({w:WARRIOR_WIDTH, h:WARRIOR_WIDTH, x:warrior.x, y:warrior.y});
