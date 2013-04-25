@@ -2,6 +2,10 @@ var Item = function(item) {
 
   var TOWER_WIDTH = 40;
   var WARRIOR_WIDTH = 40;
+
+  var TOWER_BASE = 40;
+  var WARRIOR_BASE = 40;
+
   var TOWER_TYPE="Tower";
   var WARRIOR_TYPE="Warrior";
 
@@ -83,7 +87,14 @@ var Item = function(item) {
     },
     getItem: function() {
       return item;
-    }
+    },
+		getWidth: function() {
+			  return 50;
+		},
+		getWarriorBase: function(){
+			  return WARRIOR_BASE;
+		}
+
   }
 
 };
@@ -139,7 +150,11 @@ var Tower = function(tower) {
     },
     getItem: function() {
       return tower;
+    },
+    getWidth: function() {
+      return TOWER_WIDTH;
     }
+
   }
 };
 
