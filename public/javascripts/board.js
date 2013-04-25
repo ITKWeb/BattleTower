@@ -7,6 +7,8 @@ var board = (function() {
 	var forbiddenAreas = [];
 
 
+  // return true if one of the corner of the input item ends up in the forbidden area 
+  // Forbidden area defined as: x2,y2 as top-left corner; w2, h2 as width and heigth
 	function isForbidden(item1, x2,y2,w2,h2) {
 
 		var x1 = item1.x;
@@ -33,7 +35,10 @@ var board = (function() {
 			console.log("isForbidden true");
 			return true;		
 		}
-			console.log("isForbidden false");
+
+		
+
+		console.log("isForbidden false");
 		return false;
   }
 
@@ -57,12 +62,12 @@ var board = (function() {
 				console.log(item.player);
 				// check for third part
 				
-				if (item.player === 1){
-					if (isForbidden(item, 200, 0, 400, 600 )) {
+				if (item.player === 1) {
+					if (isForbidden(item, 200-40, 0, 400, 600) || isForbidden(item, 0, 400-40, 200, 40)) {
 							return true;
 					}
 				}else{
-					if (isForbidden(item, 0, 0, 400, 600 )) {
+					if (isForbidden(item, 0, 0, 400+40, 600+40) || isForbidden(item, 600-40, 0, 40, 400) || isForbidden(item, 400+40, 400-40, 200-80, 40) ) {
 							return true;
 					}
 				}
